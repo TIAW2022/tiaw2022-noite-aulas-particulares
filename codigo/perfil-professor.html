@@ -59,7 +59,16 @@
                 </div>
                 <div class="col-12 col-xl-8">
                   <div id="nome-professor" class="my-3 mt-xl-0 p-2 info-professor d-flex justify-content-start">
-                    Nome <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                    <span id="professor-nome"></span>
+                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                  </div>
+                  <div id="escolaridade-professor" class="my-3 mt-xl-0 p-2 info-professor d-flex justify-content-start">
+                    <span id="professor-escolaridade"></span>
+                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                  </div>
+                  <div id="modalidade-professor" class="my-3 mt-xl-0 p-2 info-professor d-flex justify-content-start">
+                    <span id="professor-modalidade"></span>
+                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
                   </div>
                   <div id="materia-professor" class="my-3 p-2 info-professor">
                     <div class="input-group">
@@ -87,15 +96,17 @@
                     </div>
                   </div>
                   <div id="preco-professor" class="my-3 p-2 info-professor d-flex justify-content-start">
-                    Preço da hora/aula <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                    <span id="professor-preco"></span>
+                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
                   </div>
                   <div id="tel-professor" class="my-3 p-2 info-professor d-flex justify-content-start">
-                    Telefone <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                    <span id="professor-tel"></span>
+                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
                   </div>
                 </div>
               </div>
               <div id="desc-professor" class="mt-0 mt-xl-4 p-3 pb-1 info-professor d-flex justify-content-start">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse sunt atque consectetur? Libero provident veritatis, deserunt in error ipsa corporis enim, repellat tempore velit asperiores quas numquam doloribus explicabo autem.</p>
+                <p id="professor-desc"></p>
                 <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
               </div>
             </div>
@@ -111,18 +122,17 @@
             <div class="bg-card p-4 mt-3">
               <p class="font-weight-bold">Solicitações de aulas</p>
               <hr />
-              <div class="d-flex p-2 info-professor">
-                <div class="justify-content-start"><i class="pr-1 fas fa-user text-muted"></i> Aluno solicitante</div>
-                <div class="ml-auto opcoes-professor">
-                  <a href="#" class="text-success"><i class="fas fa-check"></i></a>
-                  <a href="#" class="text-danger"><i class="fas fa-times"></i></a>
-                </div>
-              </div>
+              <div id="solicitacao-aulas"></div>
             </div>
             <div class="bg-card p-4 mt-4">
               <p class="font-weight-bold">Aulas em andamento</p>
               <hr />
-              <div class="p-2 info-professor"><i class="pr-1 fas fa-user-check text-muted"></i> Aluno em andamento</div>
+              <div class="d-flex mt-2 p-2 info-professor">
+                <div id="aula-${aula.id}" class="justify-content-start"><i class="pr-1 fas fa-user-check text-muted"></i> Aluno em andamento</div>
+                <div class="ml-auto opcoes-professor">
+                  <a href="#" class="text-success"><i class="fas fa-check"></i></a>
+                </div>
+              </div>
             </div>
 
             <div class="bg-card p-4 mt-4">

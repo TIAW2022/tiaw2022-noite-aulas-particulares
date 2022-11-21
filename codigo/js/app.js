@@ -15,7 +15,8 @@ function populaStorage() {
       preco: 100,
       telefone: "(35) 98525-0448",
       materias: "Matemática;Física;Informática;Português;",
-      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
+      descricao:
+        "Olá! Meu nome é Hebert, sou formado em Física, Licenciatura, pela PUC Minas e aluno da Pós graduação de: Metodologia de Ensino de Matemática e Física. Leciono há mais de 5 anos Física, Matemática, Química e Inglês. Trabalho dando aulas para alunos do Ensino Fundamental ao Ensino Superior. Trabalho constantemente com alunos para Reforço Escolar, preparação para Vestibulares/Concurso, Reforço de dificuldades nas Matérias, auxílios para Prova e Trabalho. Já dei aula para diversos alunos do Brasil inteiro e para o exterior e gosto muito do que faço. Busco sempre melhorar, colhendo feedback dos pais e alunos, melhorando meus equipamentos de aula e o conteúdo. Garanto que irá gostar das minhas aulas, por isso dou uma aula gratuita para que possa me conhecer e avaliar meu trabalho. Caso queira conhecer mais de mim, abaixo há um vídeo e no meu canal do Youtube disponibilizo alguns vídeos explicativos, para ilustrar como são minhas aulas. Espero sempre poder ajudar mais e mais, prazer em conhecer você!",
       email: "hebert.vidal@geradornv.com.br",
       senha: "senhadohebert123",
     },
@@ -28,7 +29,8 @@ function populaStorage() {
       preco: 80,
       telefone: "(33) 99812-4258",
       materias: "Português;Inglês;",
-      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
+      descricao:
+        "Eu sou licenciando em Matemática na Universidade Federal Rural de Pernambuco (UFRPE) já no fim do curso. Também iniciei a minha graduação em Bacharelado em Ciências Exatas na Universidade Estácio (UNESA). Já fui aprovado 4 vezes no Instituto Federal de Pernambuco (IFPE), estagiário no CODAI, escola federal vinculada à UFRPE e monitor de Cálculo 1 na universidade. Atualmente trabalho em duas Escolas Técnicas Estaduais no estado de Pernambuco. Em uma delas eu realizo o meu estágio obrigatório. Em outra trabalho como voluntário auxiliando uma professora. Também me dedico às minhas aulas particulares, meu trabalho principal hoje. Também já fui aprovado e tomei posse em um cargo publico efetivo, do qual me exonerei no 2º semestre de 2022. Profissional comunicativo, carismático, responsável e que vai te levar em uma viagem intrigante no mundo da matemática. O que você está esperando?",
       email: "david.pinho@geradornv.com.br",
       senha: "senhadodavid123",
     },
@@ -41,7 +43,8 @@ function populaStorage() {
       escolaridade: "Mestra",
       telefone: "(37) 98358-8734",
       materias: "Geografia;História;",
-      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
+      descricao:
+        "Minhas aulas são preparadas de acordo com o ritmo de cada aluno. Totalmente personalizadas, respeitando o andamento natural dos estudantes. Aulas focadas principalmente em resolução de exercícios, extraindo as principais dúvidas e dificuldades do aluno. Para minha aulas online utilizo uma mesa digitalizadora onde consigo salvar tudo o que escrevo e posteriormente enviar ao aluno. Estou pronta para te atender e ser um suporte para seu aprendizado, como forma de extensão das aulas de seu colégio!",
       email: "raffaela.pacheco@geradornv.com.br",
       senha: "senhadarafaella123",
     },
@@ -54,7 +57,8 @@ function populaStorage() {
       preco: 170,
       telefone: "(31) 99677-1824",
       materias: "Ciências;Artes;",
-      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
+      descricao:
+        "Tenho muito para ensinar, adoro todos os assuntos relacionados com a matemática e vibro sempre que posso ensinar ou aprender novos! Procuro despertar no aluno o gosto pela matemática, mostrando sempre problemas práticos envolvendo os conteúdos em foco. Além disso, minha grande experiência com o ensino permite detectar as dificuldades de cada aluno e utilizar técnicas de ensino específicas para cada caso.",
       email: "cleonice.alentejo@geradornv.com.br",
       senha: "senhadacleonice123",
     },
@@ -110,6 +114,23 @@ function populaStorage() {
 }
 
 /**
+ * Função com propósito de salvar uma aula no local storage.
+ */
+function cadastraAula(aula) {
+  let aulas;
+
+  if (localStorage.getItem("aulas") === null) {
+    aulas = [];
+  } else {
+    aulas = JSON.parse(localStorage.getItem("aulas"));
+  }
+
+  aulas.push(aula);
+
+  localStorage.setItem("aulas", JSON.stringify(aulas));
+}
+
+/**
  * Função com propósito de gerar logs para a aplicação.
  *
  * @example
@@ -136,6 +157,18 @@ function leUsers() {
   }
 
   return strUsuarios;
+}
+
+function leAulas() {
+  let aulas;
+
+  if (localStorage.getItem("aulas") === null) {
+    aulas = [];
+  } else {
+    aulas = JSON.parse(localStorage.getItem("aulas"));
+  }
+
+  return aulas;
 }
 
 function salvaDados(dados) {
@@ -197,5 +230,4 @@ function cadastra() {
  */
 function init() {
   populaStorage();
-  setaDadosProfessor(1);
 }
