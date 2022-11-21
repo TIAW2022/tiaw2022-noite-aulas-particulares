@@ -56,17 +56,17 @@
     </div>
 
     <div class="mb-5" id="main-container">
-      <form id="register-form">
+      <form id="register-form" onsubmit="return login()">
         <div class="full-box">
           <label for="email">E-mail</label>
-          <input type="email" name="email" id="email" required maxlength="50" />
+          <input type="email" name="email-login" id="email-login" required maxlength="50" />
         </div>
         <div class="half-box spacing">
           <label for="password">Senha</label>
-          <input type="password" name="password" id="password" required minlength="8" />
+          <input type="password" name="password-login" id="password-login" required minlength="8" />
         </div>
         <div class="full-box">
-          <input type="submit" id="btn-submit" value="Entrar" />
+          <input type="submit" id="btn-submit-login" value="Entrar" />
         </div>
         <div class="full-box">
           <h5>É <u>professor</u> e não possui cadastro? <a href="cadastro-professor.html">Criar conta</a></h5>

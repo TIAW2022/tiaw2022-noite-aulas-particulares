@@ -12,11 +12,9 @@ function populaStorage() {
       nome: "Hebert",
       sobrenome: "Matta Vidal",
       escolaridade: "Mestre",
-      preco: 100,
       telefone: "(35) 98525-0448",
-      materias: "Matemática;Física;Informática;Português;",
-      descricao:
-        "Olá! Meu nome é Hebert, sou formado em Física, Licenciatura, pela PUC Minas e aluno da Pós graduação de: Metodologia de Ensino de Matemática e Física. Leciono há mais de 5 anos Física, Matemática, Química e Inglês. Trabalho dando aulas para alunos do Ensino Fundamental ao Ensino Superior. Trabalho constantemente com alunos para Reforço Escolar, preparação para Vestibulares/Concurso, Reforço de dificuldades nas Matérias, auxílios para Prova e Trabalho. Já dei aula para diversos alunos do Brasil inteiro e para o exterior e gosto muito do que faço. Busco sempre melhorar, colhendo feedback dos pais e alunos, melhorando meus equipamentos de aula e o conteúdo. Garanto que irá gostar das minhas aulas, por isso dou uma aula gratuita para que possa me conhecer e avaliar meu trabalho. Caso queira conhecer mais de mim, abaixo há um vídeo e no meu canal do Youtube disponibilizo alguns vídeos explicativos, para ilustrar como são minhas aulas. Espero sempre poder ajudar mais e mais, prazer em conhecer você!",
+      materias: "Matemática;Física;",
+      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
       email: "hebert.vidal@geradornv.com.br",
       senha: "senhadohebert123",
     },
@@ -26,11 +24,9 @@ function populaStorage() {
       nome: "David",
       sobrenome: "Folly Pinho",
       escolaridade: "Doutor",
-      preco: 80,
       telefone: "(33) 99812-4258",
       materias: "Português;Inglês;",
-      descricao:
-        "Eu sou licenciando em Matemática na Universidade Federal Rural de Pernambuco (UFRPE) já no fim do curso. Também iniciei a minha graduação em Bacharelado em Ciências Exatas na Universidade Estácio (UNESA). Já fui aprovado 4 vezes no Instituto Federal de Pernambuco (IFPE), estagiário no CODAI, escola federal vinculada à UFRPE e monitor de Cálculo 1 na universidade. Atualmente trabalho em duas Escolas Técnicas Estaduais no estado de Pernambuco. Em uma delas eu realizo o meu estágio obrigatório. Em outra trabalho como voluntário auxiliando uma professora. Também me dedico às minhas aulas particulares, meu trabalho principal hoje. Também já fui aprovado e tomei posse em um cargo publico efetivo, do qual me exonerei no 2º semestre de 2022. Profissional comunicativo, carismático, responsável e que vai te levar em uma viagem intrigante no mundo da matemática. O que você está esperando?",
+      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
       email: "david.pinho@geradornv.com.br",
       senha: "senhadodavid123",
     },
@@ -38,13 +34,11 @@ function populaStorage() {
       id: 3,
       categoria: "professor",
       nome: "Rafaella",
-      preco: 140,
       sobrenome: "Coelho Pacheco",
       escolaridade: "Mestra",
       telefone: "(37) 98358-8734",
       materias: "Geografia;História;",
-      descricao:
-        "Minhas aulas são preparadas de acordo com o ritmo de cada aluno. Totalmente personalizadas, respeitando o andamento natural dos estudantes. Aulas focadas principalmente em resolução de exercícios, extraindo as principais dúvidas e dificuldades do aluno. Para minha aulas online utilizo uma mesa digitalizadora onde consigo salvar tudo o que escrevo e posteriormente enviar ao aluno. Estou pronta para te atender e ser um suporte para seu aprendizado, como forma de extensão das aulas de seu colégio!",
+      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
       email: "raffaela.pacheco@geradornv.com.br",
       senha: "senhadarafaella123",
     },
@@ -54,11 +48,9 @@ function populaStorage() {
       nome: "Cleonice",
       sobrenome: "Salomão Alentejo",
       escolaridade: "Doutora",
-      preco: 170,
       telefone: "(31) 99677-1824",
       materias: "Ciências;Artes;",
-      descricao:
-        "Tenho muito para ensinar, adoro todos os assuntos relacionados com a matemática e vibro sempre que posso ensinar ou aprender novos! Procuro despertar no aluno o gosto pela matemática, mostrando sempre problemas práticos envolvendo os conteúdos em foco. Além disso, minha grande experiência com o ensino permite detectar as dificuldades de cada aluno e utilizar técnicas de ensino específicas para cada caso.",
+      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
       email: "cleonice.alentejo@geradornv.com.br",
       senha: "senhadacleonice123",
     },
@@ -98,6 +90,7 @@ function populaStorage() {
 
   if (localStorage.getItem("usuarios") === null) {
     try {
+      //localStorage.setItem("usuarios", JSON.stringify(usuarios));
       salvaDados(usuarios);
       geraLogs(true, "Storage 'usuarios' populado com sucesso.");
     } catch (err) {
@@ -111,23 +104,8 @@ function populaStorage() {
       geraLogs(false, "Erro ao popular o storage 'usuarios'.", err);
     }
   }
-}
 
-/**
- * Função com propósito de salvar uma aula no local storage.
- */
-function cadastraAula(aula) {
-  let aulas;
-
-  if (localStorage.getItem("aulas") === null) {
-    aulas = [];
-  } else {
-    aulas = JSON.parse(localStorage.getItem("aulas"));
-  }
-
-  aulas.push(aula);
-
-  localStorage.setItem("aulas", JSON.stringify(aulas));
+  //console.log(usuarios.length);
 }
 
 /**
@@ -149,80 +127,6 @@ function geraLogs(status, mensagem, err) {
   }
 }
 
-function leUsers() {
-  let strUsuarios = localStorage.getItem("usuarios");
-
-  if (strUsuarios !== null) {
-    strUsuarios = JSON.parse(strUsuarios);
-  }
-
-  return strUsuarios;
-}
-
-function leAulas() {
-  let aulas;
-
-  if (localStorage.getItem("aulas") === null) {
-    aulas = [];
-  } else {
-    aulas = JSON.parse(localStorage.getItem("aulas"));
-  }
-
-  return aulas;
-}
-
-function salvaDados(dados) {
-  localStorage.setItem("usuarios", JSON.stringify(dados));
-}
-
-function cadastra() {
-  let usuarios = leUsers();
-
-  let estaRegistrado = false;
-
-  let id = usuarios.length + 1;
-  let categoria = "aluno";
-  let nome = document.getElementById("name").value;
-  let sobrenome = document.getElementById("lastname").value;
-  let email = document.getElementById("email").value;
-  let senha = document.getElementById("password").value;
-
-  for (let i = 0; i < usuarios.length; i++) {
-    if (email === usuarios[i].email) {
-      estaRegistrado = true;
-      console.log("teste");
-    }
-  }
-
-  if (estaRegistrado == false) {
-    let novoAluno = {
-      id: id,
-      categoria: categoria,
-      nome: nome,
-      sobrenome: sobrenome,
-      email: email,
-      senha: senha,
-    };
-
-    usuarios.push(novoAluno);
-
-    salvaDados(usuarios);
-  } else {
-    alert("e-mail já cadastrado");
-  }
-}
-
-// document.getElementById("btn-submit").addEventListener("click", cadastra);
-
-// function cadastraProfessor() {
-//   let usuarios = leUsers();
-
-//   let estaRegistrado = false;
-
-//   let id = usuarios.length + 1;
-//   let categoria = "professor";
-// }
-
 /**
  * Função com propósito de inicializar todas as funções do app.
  *
@@ -230,4 +134,241 @@ function cadastra() {
  */
 function init() {
   populaStorage();
+}
+
+/*
+ * Função que lê e retorna um array de objetos com todos os usuário registrados no local storage
+ */
+
+function leUsers() {
+  let strUsuarios = localStorage.getItem('usuarios');
+
+  if(strUsuarios !== null){
+    strUsuarios = JSON.parse(strUsuarios);
+  }
+
+  return strUsuarios;
+}
+
+/* 
+ * Função que salva os dados dos usuarios no local storage
+ */
+
+
+function salvaDados(dados){
+  localStorage.setItem('usuarios', JSON.stringify(dados));
+}
+
+/*
+ * Função que cadastra novos alunos e salva os dados no local storage
+ */
+
+function cadastraAluno(){
+  let usuarios = leUsers();
+
+  let estaRegistrado = false;
+
+  let id = usuarios.length + 1;
+  let categoria = 'aluno';
+  let nome = document.getElementById('name').value;
+  let sobrenome = document.getElementById('lastname').value;
+  let email = document.getElementById('email').value;
+  let senha = document.getElementById('password').value;
+
+  for(let i = 0 ; i < usuarios.length ; i++){
+    if(email === usuarios[i].email){
+      estaRegistrado = true;
+      console.log("teste");
+    }
+  }
+
+  if(estaRegistrado == false){
+    let novoAluno = {
+      id: id,
+      categoria: categoria,
+      nome: nome,
+      sobrenome: sobrenome,
+      email: email,
+      senha: senha
+  
+    };
+  
+    usuarios.push(novoAluno);
+  
+    salvaDados(usuarios);
+  }
+  else{
+    alert('e-mail já cadastrado');
+  }
+
+}
+
+//event listener que da trigger na função cadatraAluno quando o botao de cadastrar é clicado
+let enviaAluno = document.getElementById('btn-submit-aluno');
+if(enviaAluno){
+  enviaAluno.addEventListener('click', cadastraAluno);
+}
+
+
+//criei só para teste
+// function printaCadastrados(){
+//   let tela = document.getElementById('container-cadastrados');
+
+//   let strHtml = ''
+
+//   let usuarios = leUsers();
+
+//   for(let i = 0 ; i < usuarios.length ; i++){
+//     strHtml += `<p> id: ${usuarios[i].id} /
+//                 Nome: ${usuarios[i].nome} ${usuarios[i].sobrenome} /
+//                 email: ${usuarios[i].email} </p>
+//                 `
+//   }
+
+//   tela.innerHTML = strHtml;
+// }
+
+// document.getElementById('carregaCadastros').addEventListener('click', printaCadastrados);
+
+
+/*
+ * Função que cadastra novos professores e salva os dados no local storage
+ */
+
+function cadastraProfessor(){
+  let usuarios = leUsers();
+  
+  let estaRegistrado = false;
+
+  let id = usuarios.length + 1;
+  let categoria = 'professor';
+  let nome = document.getElementById('name').value;
+  let sobrenome = document.getElementById('lastname').value;
+  let email = document.getElementById('email').value;
+  let senha = document.getElementById('password').value;
+  let escolaridade = document.getElementById('escolaridade').value;
+  let telefone = document.getElementById('telefone').value;
+
+  let vetMateria = [];
+  let materia = document.getElementsByName('materia');
+  for(let i = 0 ; i < materia.length ; i++){
+    if(materia[i].checked){
+      vetMateria.push(materia[i].value + ';');
+    }
+  }
+
+  let materias = vetMateria.toString().replaceAll(",", "")
+  console.log(materias)
+
+  let descricao = '';
+
+  for(let i = 0 ; i < usuarios.length ; i++){
+    if(email === usuarios[i].email){
+      estaRegistrado = true;
+    }
+  }
+
+
+  if(estaRegistrado == false){
+    let novoProfessor = {
+      id: id,
+      categoria: categoria,
+      nome: nome,
+      sobrenome: sobrenome,
+      escolaridade: escolaridade,
+      telefone: telefone,
+      materia: materias,
+      descricao: descricao,
+      email: email,
+      senha: senha,
+    };
+    usuarios.push(novoProfessor);
+  
+    salvaDados(usuarios);
+
+    //adicionaCardProf();
+  }
+  else{
+    alert('e-mail já cadastrado');
+  }
+
+}
+
+//event listener que da trigger na função cadatraProfessor quando o botao de cadastrar é clicado
+let enviaProfessor = document.getElementById('btn-submit-professor');
+if(enviaProfessor){
+  enviaProfessor.addEventListener('click', cadastraProfessor)
+}
+
+/*
+ * Função que faz a validação, efetua o login do usuário, redireciona o usuário para o seu perfil
+ * e salva os dados do usuário logado no session storage
+ */
+
+function login(){
+
+  let estaLogado = false;
+  let usuario = leUsers()
+  
+  let emailLogin = document.getElementById('email-login').value
+  let senhaLogin = document.getElementById('password-login').value
+  let idUsuario = ''
+
+  // console.log(emailLogin)
+  // console.log(senhaLogin)
+  // console.log(usuario[0].email)
+  // console.log(usuario[0].senha)
+
+  for(let i = 0 ; i < usuario.length ; i++){
+    if(usuario[i].email === emailLogin && usuario[i].senha === senhaLogin){
+      estaLogado = true
+      idUsuario = usuario[i].id;
+      usuarioLogado = usuario[i]
+    }
+  }
+
+  console.log(estaLogado)
+  console.log(idUsuario)
+  console.log(usuarioLogado)
+
+  //console.log(usuario[idUsuario - 1].categoria)
+
+  if(estaLogado === false){
+    console.log('usuario ou senha incorretos')
+    alert('usuario ou senha incorretos')
+  }else if(estaLogado === true){
+    //alert('Logado com sucesso')
+    if(usuario[idUsuario - 1].categoria === 'aluno'){
+      console.log('é aluno')
+      window.open("meu-perfil-aluno.html");
+      sessionStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
+    }
+    else if(usuario[idUsuario - 1].categoria === 'professor'){
+      console.log('é professor')
+      window.open('perfil-professor.html')
+      //window.location.replace("perfil-professor.html");
+      sessionStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
+    }
+  }
+
+}
+
+let logar = document.getElementById('btn-submit-login');
+if(logar){
+  logar.addEventListener('click', login)
+}
+
+
+
+function adicionaCardProf(){
+  let containerCards = document.getElementById('containerCards')
+  let novoCard = document.createElement('div')
+  containerCards.appendChild(novoCard)
+
+  console.log('teste')
+}
+
+let btnAdd = document.getElementById('btn-filtrar')
+if(btnAdd){
+  btnAdd.addEventListener('click', adicionaCardProf)
 }

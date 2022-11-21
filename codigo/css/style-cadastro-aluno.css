@@ -15,9 +15,8 @@ input, label{
     padding: 5px;
 }
 
-
 input:focus, label:focus{
-    outline: none;  
+    outline: none;
 }
 
 a {
@@ -73,10 +72,6 @@ form{
     justify-content: space-between;
 }
 
-#atalho{
-    display: none;
-}
-
 .full-box{
     flex: 1 1 100%;
     position: relative;
@@ -86,7 +81,6 @@ form{
     flex: 1 1 45%;
     position: relative;
 }
-
 
 .spacing{
     margin-right: 2.5%;
@@ -103,15 +97,6 @@ input{
     padding: 10px;
     font-size: 9.rem;
     margin-bottom: 25px;
-}
-
-.box {
-    display: flex;
-}
-
-#menordeidade{
-    width: 4%;
-    margin-bottom:10px;
 }
 
 input:focus{
