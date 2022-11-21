@@ -12,8 +12,9 @@ function populaStorage() {
       nome: "Hebert",
       sobrenome: "Matta Vidal",
       escolaridade: "Mestre",
+      preco: 100,
       telefone: "(35) 98525-0448",
-      materias: "Matemática;Física;",
+      materias: "Matemática;Física;Informática;Português;",
       descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
       email: "hebert.vidal@geradornv.com.br",
       senha: "senhadohebert123",
@@ -24,6 +25,7 @@ function populaStorage() {
       nome: "David",
       sobrenome: "Folly Pinho",
       escolaridade: "Doutor",
+      preco: 80,
       telefone: "(33) 99812-4258",
       materias: "Português;Inglês;",
       descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
@@ -34,6 +36,7 @@ function populaStorage() {
       id: 3,
       categoria: "professor",
       nome: "Rafaella",
+      preco: 140,
       sobrenome: "Coelho Pacheco",
       escolaridade: "Mestra",
       telefone: "(37) 98358-8734",
@@ -48,6 +51,7 @@ function populaStorage() {
       nome: "Cleonice",
       sobrenome: "Salomão Alentejo",
       escolaridade: "Doutora",
+      preco: 170,
       telefone: "(31) 99677-1824",
       materias: "Ciências;Artes;",
       descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
@@ -90,7 +94,6 @@ function populaStorage() {
 
   if (localStorage.getItem("usuarios") === null) {
     try {
-      //localStorage.setItem("usuarios", JSON.stringify(usuarios));
       salvaDados(usuarios);
       geraLogs(true, "Storage 'usuarios' populado com sucesso.");
     } catch (err) {
@@ -104,8 +107,6 @@ function populaStorage() {
       geraLogs(false, "Erro ao popular o storage 'usuarios'.", err);
     }
   }
-
-  //console.log(usuarios.length);
 }
 
 /**
@@ -127,6 +128,68 @@ function geraLogs(status, mensagem, err) {
   }
 }
 
+function leUsers() {
+  let strUsuarios = localStorage.getItem("usuarios");
+
+  if (strUsuarios !== null) {
+    strUsuarios = JSON.parse(strUsuarios);
+  }
+
+  return strUsuarios;
+}
+
+function salvaDados(dados) {
+  localStorage.setItem("usuarios", JSON.stringify(dados));
+}
+
+function cadastra() {
+  let usuarios = leUsers();
+
+  let estaRegistrado = false;
+
+  let id = usuarios.length + 1;
+  let categoria = "aluno";
+  let nome = document.getElementById("name").value;
+  let sobrenome = document.getElementById("lastname").value;
+  let email = document.getElementById("email").value;
+  let senha = document.getElementById("password").value;
+
+  for (let i = 0; i < usuarios.length; i++) {
+    if (email === usuarios[i].email) {
+      estaRegistrado = true;
+      console.log("teste");
+    }
+  }
+
+  if (estaRegistrado == false) {
+    let novoAluno = {
+      id: id,
+      categoria: categoria,
+      nome: nome,
+      sobrenome: sobrenome,
+      email: email,
+      senha: senha,
+    };
+
+    usuarios.push(novoAluno);
+
+    salvaDados(usuarios);
+  } else {
+    alert("e-mail já cadastrado");
+  }
+}
+
+// document.getElementById("btn-submit").addEventListener("click", cadastra);
+
+// function cadastraProfessor() {
+//   let usuarios = leUsers();
+
+//   let estaRegistrado = false;
+
+//   let id = usuarios.length + 1;
+//   let categoria = "professor";
+// }
+
 /**
  * Função com propósito de inicializar todas as funções do app.
  *
@@ -134,104 +197,5 @@ function geraLogs(status, mensagem, err) {
  */
 function init() {
   populaStorage();
+  setaDadosProfessor(1);
 }
-
-function leUsers() {
-  let strUsuarios = localStorage.getItem('usuarios');
-
-  if(strUsuarios !== null){
-    strUsuarios = JSON.parse(strUsuarios);
-  }
-
-  return strUsuarios;
-}
-
-function salvaDados(dados){
-  localStorage.setItem('usuarios', JSON.stringify(dados));
-}
-
-function cadastra(){
-  let usuarios = leUsers();
-
-  let estaRegistrado = false;
-
-  let id = usuarios.length + 1;
-  let categoria = 'aluno';
-  let nome = document.getElementById('name').value;
-  let sobrenome = document.getElementById('lastname').value;
-  let email = document.getElementById('email').value;
-  let senha = document.getElementById('password').value;
-
-  for(let i = 0 ; i < usuarios.length ; i++){
-    if(email === usuarios[i].email){
-      estaRegistrado = true;
-      console.log("teste");
-    }
-  }
-
-  if(estaRegistrado == false){
-    let novoAluno = {
-      id: id,
-      categoria: categoria,
-      nome: nome,
-      sobrenome: sobrenome,
-      email: email,
-      senha: senha
-  
-    };
-  
-    usuarios.push(novoAluno);
-  
-    salvaDados(usuarios);
-  }
-  else{
-    alert('e-mail já cadastrado');
-  }
-
-}
-
-//document.getElementById('btnConcluirCadastro').addEventListener('click', cadastra);
-document.getElementById('btn-submit').addEventListener('click', cadastra);
-
-
-//criei só para teste
-// function printaCadastrados(){
-//   let tela = document.getElementById('container-cadastrados');
-
-//   let strHtml = ''
-
-//   let usuarios = leUsers();
-
-//   for(let i = 0 ; i < usuarios.length ; i++){
-//     strHtml += `<p> id: ${usuarios[i].id} /
-//                 Nome: ${usuarios[i].nome} ${usuarios[i].sobrenome} /
-//                 email: ${usuarios[i].email} </p>
-//                 `
-//   }
-
-//   tela.innerHTML = strHtml;
-// }
-
-// document.getElementById('carregaCadastros').addEventListener('click', printaCadastrados);
-
-function cadastraProfessor(){
-  let usuarios = leUsers();
-  
-  let estaRegistrado = false;
-
-  let id = usuarios.length + 1;
-  let categoria = 'professor';
-}
-
-/*
-id: 4,
-      categoria: "professor",
-      nome: "Cleonice",
-      sobrenome: "Salomão Alentejo",
-      escolaridade: "Doutora",
-      telefone: "(31) 99677-1824",
-      materias: "Ciências;Artes;",
-      descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.", // TODO: Colocar uma descrição real
-      email: "cleonice.alentejo@geradornv.com.br",
-      senha: "senhadacleonice123",
-*/
