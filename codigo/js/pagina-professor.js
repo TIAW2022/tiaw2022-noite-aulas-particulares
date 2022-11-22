@@ -74,7 +74,7 @@ function setAula(e) {
       data: dataInput,
       hora: horaInput,
       local: localInput,
-      idProfessor: urlParams.get("id") - 1,
+      idProfessor: parseInt(urlParams.get("id")),
       status: "aguardando",
     };
 
