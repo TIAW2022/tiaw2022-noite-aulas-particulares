@@ -1,7 +1,6 @@
 // Inicializa todas as funções do app
 init();
 
-// TODO: Ajustar o filtro da página busca-professor
 // TODO: Modificar dinamicamente o perfil-professor e perfil-aluno, com entre si
 
 /**
@@ -377,6 +376,7 @@ function cadastraProfessor() {
   let senha = document.getElementById("password").value;
   let escolaridade = document.getElementById("escolaridade").value;
   let telefone = document.getElementById("telefone").value;
+  let preco = parseInt(document.getElementById("preco").value);
 
   let vetMateria = [];
   let materia = document.getElementsByName("materia");
@@ -404,6 +404,7 @@ function cadastraProfessor() {
       nome: nome,
       sobrenome: sobrenome,
       escolaridade: escolaridade,
+      preco: preco,
       telefone: telefone,
       materias: materias,
       descricao: descricao,
@@ -413,6 +414,10 @@ function cadastraProfessor() {
     usuarios.push(novoProfessor);
 
     salvaDados(usuarios);
+
+    setTimeout(() => {
+      window.location.href = "./login.html";
+    }, 500);
   } else {
     alert("E-mail já cadastrado");
   }
@@ -481,6 +486,8 @@ function checaLogin() {
   return estaLogado;
 }
 
+//adiciona um card de professor na página de buscar professores quando uma nova conta de professor é criada
+
 function adicionaCardProf() {
   let usuario = leUsers();
 
@@ -495,13 +502,13 @@ function adicionaCardProf() {
       let novoCard = document.createElement("div");
       containerCards.appendChild(novoCard);
       novoCard.className = "col-12 col-sm-12 col-md-6 col-lg-3 card-prof d-grid justify-content-center";
-      //console.log('teste')
+      novoCard.setAttribute('id', `cardProf${i}`)
 
       const materiasLecionadas = usuario[i].materias.replaceAll(";", "<br>");
 
       novoCard.innerHTML = `
         <div class="col-xl-5 col-xxl-6 text-center img d-flex mx-auto">
-          <img class="rounded-3 my-3" style="width: 150px; height: 150px;" src="img/professor.png" alt="..." />
+          <img class="rounded-3 my-3" id="divCardProfessor" style="width: 150px; height: 150px;" src="img/professor.png" alt="..." />
         </div>
         <p id="nomeProf">
           <strong>Nome:</strong> ${usuario[i].nome}
@@ -512,6 +519,9 @@ function adicionaCardProf() {
         <p id="materiaProf">
           <strong>Materias:</strong> <br> ${materiasLecionadas}
         </p>
+        <p id="precoProf">
+          <strong>Preço hora/aula:</strong> R$${usuario[i].preco} <br>
+        </p>
         <a href="./pagina-professor.html?id=${usuario[i].id}" class="btn text-primary mt-3"><i class="fas fa-arrow-right"></i> <b>Contate o professor!</b></a>
       `;
     }
@@ -521,6 +531,34 @@ function adicionaCardProf() {
 let containerCards = document.getElementById("containerCards");
 if (containerCards) {
   adicionaCardProf();
+}
+
+//filtra os cards dos professores de acordo com a matéria e o preço na página de buscar os professores
+
+function filtraCardProf(e){
+  let preco = parseInt(document.getElementById('precoFiltro').value)
+  let materia = document.getElementById('materiaFiltro').value
+
+  console.log(preco)
+  console.log(materia)
+
+  let usuarios = leUsers();
+
+  for(let i = 0 ; i < usuarios.length ; i++){
+    if(usuarios[i].categoria == 'professor'){
+      let divCard = document.getElementById(`cardProf${i}`)
+      if(!(((usuarios[i].materias).includes(materia)) && (usuarios[i].preco <= preco))){
+        console.log('ok')
+        divCard.setAttribute('class', 'collapse')
+      }
+    }
+  }
+  e.preventDefault();
+}
+
+let btnFiltro = document.getElementById('btn-filtrar');
+if(btnFiltro){
+  btnFiltro.addEventListener("click", filtraCardProf)
 }
 
 /**

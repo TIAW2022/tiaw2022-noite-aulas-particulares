@@ -7,6 +7,7 @@ body, html{
     width: 100%;
     height: 100%;
     overflow-x: hidden;
+    background-color: #F5EFE6;
 }
 
 .nav-color{
@@ -114,6 +115,10 @@ body, html{
 .form-group{
     margin-left: 15%;
     margin-right: 15%;
+}
+
+#containerCards{
+    margin-bottom: 80px !important;
 }
 
 

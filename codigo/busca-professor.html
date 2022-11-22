@@ -26,15 +26,16 @@
               <div class="filtro-preco">
                 <form method="post" action="">
                   <div data-role="rangeslider" class="d-flex">
-                    <input type="range" class="form-range" min="15" max="120" id="customRange2" oninput="this.nextElementSibling.value = this.value" />
-                    R$<output><b>35</b></output>
+                    <input type="range" id="precoFiltro" class="form-range" min="15" max="350" id="customRange2" oninput="this.nextElementSibling.value = this.value" />
+                    R$<output><b>120</b></output>
                   </div>
                 </form>
               </div>
               <form role="form product-form">
                 <label for="filtro-materia"> <span>Materia</span></label>
                 <div class="form-group filtro-materia">
-                  <select class="form-control">
+                  <select class="form-control" id="materiaFiltro">
+                    <option>Todas</option>
                     <option>Matemática</option>
                     <option>Português</option>
                     <option>Geografia</option>
@@ -44,7 +45,11 @@
                     <option>Informática</option>
                   </select>
                 </div>
-                <button class="btn btn-primary" id="btn-filtrar">Filtrar</button>
+                <div class="d-block">
+                  <button class="btn btn-primary mr-4" id="btn-filtrar">Filtrar</button>
+                  <button type="submit" class="btn btn-primary" id="btn-removerFiltros">Remover Filtros</button>
+                </div>
+                
               </form>
             </div>
           </section>
@@ -69,7 +74,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="navbar nav-color">
+    <footer class="navbar nav-color fixed-bottom">
       <a href="#" class="navbar-brand logo text-muted">
         <i class="fas fa-book" style="font-size: 21px"></i>
         <span class="font-weight-bold">Aulas Particulares</span>

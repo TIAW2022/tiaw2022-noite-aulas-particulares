@@ -1,5 +1,6 @@
 if (!checaLogin()) {
-  window.location.href = "./index.html";
+  alert('faça login para solicitar uma aula')
+  window.location.href = "./cadastro-aluno.html";
 }
 
 // Query Selectors
