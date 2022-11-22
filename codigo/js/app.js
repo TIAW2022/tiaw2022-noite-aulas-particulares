@@ -310,7 +310,7 @@ function cadastraProfessor() {
       sobrenome: sobrenome,
       escolaridade: escolaridade,
       telefone: telefone,
-      materia: materias,
+      materias: materias,
       descricao: descricao,
       email: email,
       senha: senha,
@@ -362,26 +362,46 @@ function login() {
   }
 }
 
-document.querySelector("#btn-submit-login").addEventListener("click", (e) => {
-  e.preventDefault();
-  login();
+const logado = document.querySelector("#btn-submit-login");
 
-  alert("Logado com sucesso! Clique em 'OK' para ser redirecionado");
+if (logado) {
+  logado.addEventListener("click", (e) => {
+    e.preventDefault();
+    login();
 
-  setTimeout(() => {
-    window.location.href = "./index.html";
-  }, 500);
-});
+    alert("Logado com sucesso! Clique em 'OK' para ser redirecionado");
+
+    setTimeout(() => {
+      window.location.href = "./index.html";
+    }, 500);
+  });
+}
 
 function adicionaCardProf() {
-  let containerCards = document.getElementById("containerCards");
-  let novoCard = document.createElement("div");
-  containerCards.appendChild(novoCard);
+  let usuario = leUsers();
 
-  console.log("teste");
+  //console.log(usuario)
+
+  // let containerCards = document.getElementById('containerCards')
+  // let novoCard = document.createElement('div')
+
+  for (let i = 0; i < usuario.length; i++) {
+    if (usuario[i].categoria == "professor") {
+      let containerCards = document.getElementById("containerCards");
+      let novoCard = document.createElement("div");
+      containerCards.appendChild(novoCard);
+      novoCard.className = "col-12 col-sm-12 col-md-6 col-lg-3 card-prof d-grid justify-content-center";
+      //console.log('teste')
+
+      const materiasLecionadas = usuario[i].materias.replaceAll(";", "<br>");
+
+      novoCard.innerHTML = `<div class="col-xl-5 col-xxl-6 text-center img d-flex mx-auto"><img class="rounded-3 my-3" style="width: 150px; height: 200px;" src="img/14x3.jpg" alt="..." /></div>
+      <p id="nomeProf"> <strong> Nome: </strong> ${usuario[i].nome}</p>
+      <p> <strong>Formação: </strong> ${usuario[i].escolaridade} <br> </p>
+      <p id="materiaProf"> <strong> Materias: </strong> <br> ${materiasLecionadas}</p>
+      <a href="" class="mais-det nav-link">mais detalhes</a>`;
+    }
+  }
 }
 
-let btnAdd = document.getElementById("btn-filtrar");
-if (btnAdd) {
-  btnAdd.addEventListener("click", adicionaCardProf);
-}
+adicionaCardProf();
