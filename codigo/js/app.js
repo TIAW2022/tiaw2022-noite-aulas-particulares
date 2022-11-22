@@ -318,10 +318,8 @@ function cadastraProfessor() {
     usuarios.push(novoProfessor);
 
     salvaDados(usuarios);
-
-    //adicionaCardProf();
   } else {
-    alert("e-mail já cadastrado");
+    alert("E-mail já cadastrado");
   }
 }
 
@@ -344,11 +342,6 @@ function login() {
   let senhaLogin = document.getElementById("password-login").value;
   let idUsuario = "";
 
-  // console.log(emailLogin)
-  // console.log(senhaLogin)
-  // console.log(usuario[0].email)
-  // console.log(usuario[0].senha)
-
   for (let i = 0; i < usuario.length; i++) {
     if (usuario[i].email === emailLogin && usuario[i].senha === senhaLogin) {
       estaLogado = true;
@@ -357,34 +350,28 @@ function login() {
     }
   }
 
-  console.log(estaLogado);
-  console.log(idUsuario);
-  console.log(usuarioLogado);
-
-  //console.log(usuario[idUsuario - 1].categoria)
-
   if (estaLogado === false) {
     console.log("usuario ou senha incorretos");
     alert("usuario ou senha incorretos");
   } else if (estaLogado === true) {
-    //alert('Logado com sucesso')
     if (usuario[idUsuario - 1].categoria === "aluno") {
-      console.log("é aluno");
-      window.open("meu-perfil-aluno.html");
       sessionStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
     } else if (usuario[idUsuario - 1].categoria === "professor") {
-      console.log("é professor");
-      window.open("perfil-professor.html");
-      //window.location.replace("perfil-professor.html");
       sessionStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
     }
   }
 }
 
-let logar = document.getElementById("btn-submit-login");
-if (logar) {
-  logar.addEventListener("click", login);
-}
+document.querySelector("#btn-submit-login").addEventListener("click", (e) => {
+  e.preventDefault();
+  login();
+
+  alert("Logado com sucesso! Clique em 'OK' para ser redirecionado");
+
+  setTimeout(() => {
+    window.location.href = "./index.html";
+  }, 500);
+});
 
 function adicionaCardProf() {
   let containerCards = document.getElementById("containerCards");
