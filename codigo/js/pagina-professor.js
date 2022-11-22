@@ -1,8 +1,11 @@
+if (!checaLogin()) {
+  window.location.href = "./index.html";
+}
+
 // Query Selectors
 const UISelectors = {
   nomeProfessor: "#nome-professor",
   escolaridadeProfessor: "#escolaridade-professor",
-  modalidadeProfessor: "#modalidade-professor",
   precoProfessor: "#preco-professor",
   materiaProfessor: "#materia-professor",
   contatoProfessor: "#contato-professor",
@@ -18,9 +21,10 @@ const UISelectors = {
 /**
  * Função com propósito de recuperar os dados do local storage e devolver na tela.
  */
-function setDadosProfessor(idProfessor) {
+function setDadosProfessor() {
   const dados = leUsers();
-  const idProf = idProfessor - 1;
+  const urlParams = new URLSearchParams(window.location.search);
+  const idProf = urlParams.get("id") - 1;
   const nomeCompleto = dados[idProf].nome + " " + dados[idProf].sobrenome;
   const telefone = dados[idProf].telefone.replaceAll(" ", "").replaceAll("(", "").replaceAll(")", "").replaceAll("-", "");
 
@@ -29,9 +33,6 @@ function setDadosProfessor(idProfessor) {
   `;
   document.querySelector(UISelectors.escolaridadeProfessor).innerHTML = `
     <b>Escolaridade:</b> ${dados[idProf].escolaridade}
-  `;
-  document.querySelector(UISelectors.modalidadeProfessor).innerHTML = `
-    <b>Modalidade:</b> ${dados[idProf].modalidade}
   `;
   document.querySelector(UISelectors.precoProfessor).innerHTML = `
   <b>Preço hora/aula:</b> R$${dados[idProf].preco}
@@ -47,7 +48,7 @@ function setDadosProfessor(idProfessor) {
   `;
 }
 
-setDadosProfessor(1);
+setDadosProfessor();
 
 /**
  * Função com propósito de capturar os dados da aula solicitada pelo aluno.
@@ -55,6 +56,7 @@ setDadosProfessor(1);
 function setAula(e) {
   e.preventDefault();
 
+  const urlParams = new URLSearchParams(window.location.search);
   const nomeInput = document.querySelector(UISelectors.nomeAluno).value;
   const contatoInput = document.querySelector(UISelectors.dadosAluno).value;
   const dataInput = document.querySelector(UISelectors.dataAula).value;
@@ -71,7 +73,7 @@ function setAula(e) {
       data: dataInput,
       hora: horaInput,
       local: localInput,
-      idProfessor: 1,
+      idProfessor: urlParams.get("id") - 1,
       status: "aguardando",
     };
 

@@ -1,10 +1,13 @@
 /*geral*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Poppins';
     color: #2e4459;
     border: none;
 }

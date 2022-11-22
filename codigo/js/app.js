@@ -1,6 +1,9 @@
 // Inicializa todas as funções do app
 init();
 
+// TODO: Ajustar o filtro da página busca-professor
+// TODO: Modificar dinamicamente o perfil-professor e perfil-aluno, com entre si
+
 /**
  * Função com propósito de popular o Local Storage com dados fictícios.
  */
@@ -96,9 +99,51 @@ function populaStorage() {
     },
   ];
 
+  let aulas = [
+    {
+      id: 1,
+      nome: "Cláudio",
+      contato: "(31) 99123-4567",
+      data: "2023-03-04",
+      hora: "13:15",
+      local: "Rua Minas Gerais, 197, Vila Brasil de Nossa Senhora Aparecida, Poços de Caldas, MG",
+      idProfessor: 1,
+      status: "aguardando",
+    },
+    {
+      id: 2,
+      nome: "Maria Aparecida",
+      contato: "(31) 99413-4567",
+      data: "2023-03-05",
+      hora: "13:25",
+      local: "Rua Itajubá, 185, Floresta, Belo Horizonte, MG",
+      idProfessor: 2,
+      status: "aguardando",
+    },
+    {
+      id: 3,
+      nome: "Marcelino",
+      contato: "(31) 99759-4567",
+      data: "2023-03-15",
+      hora: "14:25",
+      local: "Rua Jalaliel, 7859, Vitória da Conquista, Belo Horizonte, MG",
+      idProfessor: 3,
+      status: "aguardando",
+    },
+    {
+      id: 4,
+      nome: "Ana Carolinna",
+      contato: "(31) 99796-4567",
+      data: "2023-06-27",
+      hora: "19:00",
+      local: "Rua Santa Cruz, 25, Brasiléia, Betim, MG",
+      idProfessor: 4,
+      status: "aguardando",
+    },
+  ];
+
   if (localStorage.getItem("usuarios") === null) {
     try {
-      //localStorage.setItem("usuarios", JSON.stringify(usuarios));
       salvaDados(usuarios);
       geraLogs(true, "Storage 'usuarios' populado com sucesso.");
     } catch (err) {
@@ -110,6 +155,22 @@ function populaStorage() {
       geraLogs(true, "Storage 'usuarios' recuperado com sucesso.");
     } catch (err) {
       geraLogs(false, "Erro ao popular o storage 'usuarios'.", err);
+    }
+  }
+
+  if (localStorage.getItem("aulas") === null) {
+    try {
+      localStorage.setItem("aulas", JSON.stringify(aulas));
+      geraLogs(true, "Storage 'aulas' populado com sucesso.");
+    } catch (err) {
+      geraLogs(false, "Erro ao popular o storage 'aulas'.", err);
+    }
+  } else {
+    try {
+      aulas = JSON.parse(localStorage.getItem("aulas"));
+      geraLogs(true, "Storage 'aulas' recuperado com sucesso.");
+    } catch (err) {
+      geraLogs(false, "Erro ao popular o storage 'aulas'.", err);
     }
   }
 
@@ -136,12 +197,66 @@ function geraLogs(status, mensagem, err) {
 }
 
 /**
- * Função com propósito de inicializar todas as funções do app.
- *
- * Obrigatório ser a última função a ser declarada e todas as funções a serem chamadas devem ser inicializadas dentro desta função.
+ * Renderiza a navbar de acordo com o login.
  */
-function init() {
-  populaStorage();
+function renderizaNavbar() {
+  let userLogado = sessionStorage.getItem("usuarioLogado");
+  let categoriaUsuario;
+
+  if (userLogado !== null) {
+    userLogado = JSON.parse(userLogado);
+    categoriaUsuario = userLogado.categoria;
+  }
+
+  if (checaLogin()) {
+    document.querySelector(".navbar").innerHTML = `
+      <a class="navbar-brand logo text-muted" href="index.html">
+      <i class="fas fa-book"></i>
+      <span> <b> Aulas Particulares </b></span> 
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon pt-1"> <i class="fas fa-bars text-muted"></i> </span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0 px-3">
+          <li class="nav-item px-2">
+            <a class="nav-link text-muted" href="perfil-${categoriaUsuario}.html"> <span> <b> Meu Perfil </b> </span> </a>
+          </li>
+          <li class="nav-item px-2">
+              <a class="nav-link text-muted" href="sobre.html"> <span> <b> Sobre </b> </span> </a>
+            </li>
+        </ul>
+      </div>
+    `;
+  } else {
+    document.querySelector(".navbar").innerHTML = `
+    <a class="navbar-brand logo text-muted" href="index.html">
+        <i class="fas fa-book"></i>
+        <span> <b> Aulas Particulares </b></span> 
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon pt-1"> <i class="fas fa-bars text-muted"></i> </span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0 px-3">
+        <li class="nav-item px-2">
+          <a class="nav-link text-muted" href="cadastro-aluno.html"> <span><b>Cadastre-se</b></span> <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link text-muted" href="cadastro-professor.html"> <span> <b>Seja Professor</b> </span> </a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link text-muted" href="login.html"> <span> <b> Entrar </b> </span> </a>
+        </li>
+        <li class="nav-item px-2">
+            <a class="nav-link text-muted" href="sobre.html"> <span> <b> Sobre </b> </span> </a>
+          </li>
+      </ul>
+    </div>
+    `;
+  }
 }
 
 /*
@@ -245,26 +360,6 @@ if (enviaAluno) {
   enviaAluno.addEventListener("click", cadastraAluno);
 }
 
-//criei só para teste
-// function printaCadastrados(){
-//   let tela = document.getElementById('container-cadastrados');
-
-//   let strHtml = ''
-
-//   let usuarios = leUsers();
-
-//   for(let i = 0 ; i < usuarios.length ; i++){
-//     strHtml += `<p> id: ${usuarios[i].id} /
-//                 Nome: ${usuarios[i].nome} ${usuarios[i].sobrenome} /
-//                 email: ${usuarios[i].email} </p>
-//                 `
-//   }
-
-//   tela.innerHTML = strHtml;
-// }
-
-// document.getElementById('carregaCadastros').addEventListener('click', printaCadastrados);
-
 /*
  * Função que cadastra novos professores e salva os dados no local storage
  */
@@ -351,13 +446,15 @@ function login() {
   }
 
   if (estaLogado === false) {
-    console.log("usuario ou senha incorretos");
-    alert("usuario ou senha incorretos");
+    alert("Usuário e/ou senha incorreto(s).");
   } else if (estaLogado === true) {
-    if (usuario[idUsuario - 1].categoria === "aluno") {
+    if (usuario[idUsuario - 1].categoria === "aluno" || usuario[idUsuario - 1].categoria === "professor") {
       sessionStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
-    } else if (usuario[idUsuario - 1].categoria === "professor") {
-      sessionStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
+      alert("Logado com sucesso! Clique em 'OK' para ser redirecionado");
+
+      setTimeout(() => {
+        window.location.href = "./index.html";
+      }, 500);
     }
   }
 }
@@ -368,13 +465,20 @@ if (logado) {
   logado.addEventListener("click", (e) => {
     e.preventDefault();
     login();
-
-    alert("Logado com sucesso! Clique em 'OK' para ser redirecionado");
-
-    setTimeout(() => {
-      window.location.href = "./index.html";
-    }, 500);
   });
+}
+
+function checaLogin() {
+  let logado = sessionStorage.getItem("usuarioLogado");
+  let estaLogado = false;
+
+  if (logado !== null) {
+    estaLogado = true;
+  } else {
+    console.log("Não há usuários logados");
+  }
+
+  return estaLogado;
 }
 
 function adicionaCardProf() {
@@ -395,13 +499,36 @@ function adicionaCardProf() {
 
       const materiasLecionadas = usuario[i].materias.replaceAll(";", "<br>");
 
-      novoCard.innerHTML = `<div class="col-xl-5 col-xxl-6 text-center img d-flex mx-auto"><img class="rounded-3 my-3" style="width: 150px; height: 200px;" src="img/14x3.jpg" alt="..." /></div>
-      <p id="nomeProf"> <strong> Nome: </strong> ${usuario[i].nome}</p>
-      <p> <strong>Formação: </strong> ${usuario[i].escolaridade} <br> </p>
-      <p id="materiaProf"> <strong> Materias: </strong> <br> ${materiasLecionadas}</p>
-      <a href="" class="mais-det nav-link">mais detalhes</a>`;
+      novoCard.innerHTML = `
+        <div class="col-xl-5 col-xxl-6 text-center img d-flex mx-auto">
+          <img class="rounded-3 my-3" style="width: 150px; height: 150px;" src="img/professor.png" alt="..." />
+        </div>
+        <p id="nomeProf">
+          <strong>Nome:</strong> ${usuario[i].nome}
+        </p>
+        <p>
+          <strong>Formação:</strong> ${usuario[i].escolaridade} <br>
+        </p>
+        <p id="materiaProf">
+          <strong>Materias:</strong> <br> ${materiasLecionadas}
+        </p>
+        <a href="./pagina-professor.html?id=${usuario[i].id}" class="btn text-primary mt-3"><i class="fas fa-arrow-right"></i> <b>Contate o professor!</b></a>
+      `;
     }
   }
 }
 
-adicionaCardProf();
+let containerCards = document.getElementById("containerCards");
+if (containerCards) {
+  adicionaCardProf();
+}
+
+/**
+ * Função com propósito de inicializar todas as funções do app.
+ *
+ * Obrigatório ser a última função a ser declarada e todas as funções a serem chamadas devem ser inicializadas dentro desta função.
+ */
+function init() {
+  populaStorage();
+  renderizaNavbar();
+}
