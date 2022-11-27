@@ -19,16 +19,39 @@ if (!checaLogin()) {
  */
 function setDadosProfessor() {
   const dados = leUsers();
-  const nomeCompleto = dados[indexProf].nome + " " + dados[indexProf].sobrenome;
 
-  document.querySelector("#professor-nome").innerText = nomeCompleto;
-  document.querySelector("#professor-escolaridade").innerHTML = dados[indexProf].escolaridade;
-  // document.querySelector(UISelectors.materiaProfessor).innerHTML = `
-  //   <b>Matérias:</b> ${dados[indexProf].materias.replaceAll(";", " / ")}
-  // `;
-  document.querySelector("#professor-preco").innerHTML = "R$" + dados[indexProf].preco;
-  document.querySelector("#professor-tel").innerHTML = dados[indexProf].telefone;
-  document.querySelector("#professor-desc").innerHTML = dados[indexProf].descricao;
+  document.querySelector("#professor-nome").value = dados[indexProf].nome;
+  document.querySelector("#professor-sobrenome").value = dados[indexProf].sobrenome;
+  document.querySelector("#professor-escolaridade").value = dados[indexProf].escolaridade;
+  document.querySelector("#professor-materia").value = dados[indexProf].materias;
+  document.querySelector("#professor-preco").value = dados[indexProf].preco;
+  document.querySelector("#professor-tel").value = dados[indexProf].telefone;
+  document.querySelector("#professor-desc").value = dados[indexProf].descricao;
+}
+
+function salvarDados() {
+  const users = leUsers();
+
+  document.querySelector("#salvar-perfil").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].id === uLogado.id) {
+        alert("Seus dados foram alterados com sucesso!");
+
+        users[i].nome = document.querySelector("#professor-nome").value;
+        users[i].sobrenome = document.querySelector("#professor-sobrenome").value;
+        users[i].escolaridade = document.querySelector("#professor-escolaridade").value;
+        users[i].materias = document.querySelector("#professor-materia").value;
+        users[i].preco = document.querySelector("#professor-preco").value;
+        users[i].telefone = document.querySelector("#professor-tel").value;
+        users[i].descricao = document.querySelector("#professor-desc").value;
+        localStorage.setItem("usuarios", JSON.stringify(users));
+
+        window.location.reload();
+      }
+    }
+  });
 }
 
 /**
@@ -130,3 +153,4 @@ function recuperaAulas() {
 setDadosProfessor();
 alteraAula();
 recuperaAulas();
+salvarDados();

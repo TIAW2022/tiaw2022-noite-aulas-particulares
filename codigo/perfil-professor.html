@@ -31,53 +31,30 @@
                   </div>
                 </div>
                 <div class="col-12 col-xl-8">
-                  <div id="nome-professor" class="my-3 mt-xl-0 p-2 info-professor d-flex justify-content-start">
-                    <span id="professor-nome"></span>
-                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                  <div id="nome-professor" class="my-3 mt-xl-0 p-2 info-professor input-group d-flex justify-content-start">
+                    <input type="text" value="" placeholder="Nome" id="professor-nome" class="form-control" />
+                    <input type="text" value="" placeholder="Sobrenome" id="professor-sobrenome" class="form-control" />
                   </div>
                   <div id="escolaridade-professor" class="my-3 mt-xl-0 p-2 info-professor d-flex justify-content-start">
-                    <span id="professor-escolaridade"></span>
-                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                    <input type="text" value="" id="professor-escolaridade" placeholder="Superior incompleto, Superior completo, Mestrado ou Doutorado" class="form-control" />
                   </div>
                   <div id="materia-professor" class="my-3 p-2 info-professor">
-                    <div class="input-group">
-                      <select class="custom-select" id="materias-select" aria-label="Example select with button addon" style="border: none; border-bottom: 1px solid #ccc">
-                        <option selected>Matérias...</option>
-                        <option value="matematica">Matemática</option>
-                        <option value="portugues">Português</option>
-                        <option value="geografia">Geografia</option>
-                        <option value="ciencias">Ciências</option>
-                        <option value="artes">Artes</option>
-                        <option value="ingles">Inglês</option>
-                        <option value="informatica">Informática</option>
-                      </select>
-                      <div class="input-group-append">
-                        <button class="btn btn-success" type="button"><i class="fas fa-plus"></i></button>
-                      </div>
-                    </div>
-                    <div id="materias" class="pt-2">
-                      <span>
-                        Matemática <a href="#" class="text-danger"><i class="fas fa-times"></i></a>
-                      </span>
-                      <span>
-                        Informática <a href="#" class="text-danger"><i class="fas fa-times"></i></a>
-                      </span>
-                    </div>
+                    <input type="text" value="" placeholder="Matéria1;Matéria2;Matéria3;" id="professor-materia" class="form-control" />
                   </div>
-                  <div id="preco-professor" class="my-3 p-2 info-professor d-flex justify-content-start">
-                    <span id="professor-preco"></span>
-                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                  <div id="preco-professor" class="my-3 p-2 info-professor input-group d-flex justify-content-start">
+                    <span class="input-group-text" id="addon-wrapping">R$</span>
+                    <input type="number" value="" placeholder="000,00" id="professor-preco" class="form-control" />
                   </div>
                   <div id="tel-professor" class="my-3 p-2 info-professor d-flex justify-content-start">
-                    <span id="professor-tel"></span>
-                    <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+                    <input type="tel" value="" placeholder="Digite somente os números" maxlength="15" onkeyup="handlePhone(event)" id="professor-tel" class="form-control" />
                   </div>
                 </div>
               </div>
-              <div id="desc-professor" class="mt-0 mt-xl-4 p-3 pb-1 info-professor d-flex justify-content-start">
-                <p id="professor-desc"></p>
-                <a href="#" class="text-secondary ml-auto"><i class="fas fa-edit"></i></a><a href="#" class="text-success ml-auto" style="display: none"><i class="fas fa-check"></i></a>
+              <div id="desc-professor" class="mt-0 mt-xl-4 p-3 info-professor d-flex justify-content-start">
+                <textarea type="text" value="" placeholder="Digite sua descrição, da forma que preferir" id="professor-desc" class="form-control" style="height: 250px"></textarea>
               </div>
+
+              <a href="#" id="salvar-perfil" class="btn btn-success mt-3">Salvar alterações</a>
             </div>
           </div>
         </div>

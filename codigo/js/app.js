@@ -4,6 +4,22 @@ init();
 // TODO: Modificar dinamicamente o perfil-professor e perfil-aluno, com comunicação entre si
 
 /**
+ * Máscara de telefone
+ */
+const handlePhone = (event) => {
+  let input = event.target;
+  input.value = phoneMask(input.value);
+};
+
+const phoneMask = (value) => {
+  if (!value) return "";
+  value = value.replace(/\D/g, "");
+  value = value.replace(/(\d{2})(\d)/, "($1) $2");
+  value = value.replace(/(\d)(\d{4})$/, "$1-$2");
+  return value;
+};
+
+/**
  * Função com propósito de popular o Local Storage com dados fictícios.
  */
 function populaStorage() {
@@ -172,8 +188,6 @@ function populaStorage() {
       geraLogs(false, "Erro ao popular o storage 'aulas'.", err);
     }
   }
-
-  //console.log(usuarios.length);
 }
 
 /**
@@ -361,7 +375,6 @@ function cadastraAluno() {
   for (let i = 0; i < usuarios.length; i++) {
     if (email === usuarios[i].email) {
       estaRegistrado = true;
-      console.log("teste");
     }
   }
 
@@ -417,9 +430,8 @@ function cadastraProfessor() {
   }
 
   let materias = vetMateria.toString().replaceAll(",", "");
-  console.log(materias);
 
-  let descricao = "";
+  let descricao = ``;
 
   for (let i = 0; i < usuarios.length; i++) {
     if (email === usuarios[i].email) {
@@ -520,11 +532,6 @@ function checaLogin() {
 
 function adicionaCardProf() {
   let usuario = leUsers();
-
-  //console.log(usuario)
-
-  // let containerCards = document.getElementById('containerCards')
-  // let novoCard = document.createElement('div')
 
   for (let i = 0; i < usuario.length; i++) {
     if (usuario[i].categoria == "professor") {
