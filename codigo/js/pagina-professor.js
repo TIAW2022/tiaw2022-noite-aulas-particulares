@@ -1,5 +1,5 @@
 if (!checaLogin()) {
-  alert('faça login para solicitar uma aula')
+  alert('Você deve estar logado para solicitar uma aula')
   window.location.href = "./cadastro-aluno.html";
 }
 

@@ -1,7 +1,7 @@
 // Inicializa todas as funções do app
 init();
 
-// TODO: Modificar dinamicamente o perfil-professor e perfil-aluno, com entre si
+// TODO: Modificar dinamicamente o perfil-professor e perfil-aluno, com comunicação entre si
 
 /**
  * Função com propósito de popular o Local Storage com dados fictícios.
@@ -199,19 +199,20 @@ function geraLogs(status, mensagem, err) {
  * Renderiza a navbar de acordo com o login.
  */
 function renderizaNavbar() {
-  let userLogado = sessionStorage.getItem("usuarioLogado");
+  const userLogado = leUserLogado();
   let categoriaUsuario;
+  let idUsuarioLogado;
 
   if (userLogado !== null) {
-    userLogado = JSON.parse(userLogado);
     categoriaUsuario = userLogado.categoria;
+    idUsuarioLogado = userLogado.id;
   }
 
   if (checaLogin()) {
     document.querySelector(".navbar").innerHTML = `
       <a class="navbar-brand logo text-muted" href="index.html">
       <i class="fas fa-book"></i>
-      <span> <b> Aulas Particulares </b></span> 
+      <span> <b> Aulas Particulares </b></span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon pt-1"> <i class="fas fa-bars text-muted"></i> </span>
@@ -220,11 +221,20 @@ function renderizaNavbar() {
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0 px-3">
           <li class="nav-item px-2">
-            <a class="nav-link text-muted" href="perfil-${categoriaUsuario}.html"> <span> <b> Meu Perfil </b> </span> </a>
+            <a class="nav-link text-muted" href="perfil-${categoriaUsuario}.html?id=${idUsuarioLogado}">
+              <span> <b> Meu Perfil </b> </span>
+            </a>
           </li>
           <li class="nav-item px-2">
-              <a class="nav-link text-muted" href="sobre.html"> <span> <b> Sobre </b> </span> </a>
-            </li>
+            <a class="nav-link text-muted" href="sobre.html">
+              <span> <b> Sobre </b> </span>
+            </a>
+          </li>
+          <li class="nav-item px-2">
+            <a class="nav-link text-muted" href="#">
+              <span class="logout" style="font-weight: bold">Sair</span>
+            </a>
+          </li>
         </ul>
       </div>
     `;
@@ -258,6 +268,16 @@ function renderizaNavbar() {
   }
 }
 
+document.querySelector(".navbar-nav").addEventListener("click", (e) => {
+  if (e.target.className === "logout") {
+    e.preventDefault();
+
+    alert("Deslogado com sucesso...");
+    sessionStorage.removeItem("usuarioLogado");
+    window.location.href = "./index.html";
+  }
+});
+
 /*
  * Função que lê e retorna um array de objetos com todos os usuário registrados no local storage
  */
@@ -270,6 +290,16 @@ function leUsers() {
   }
 
   return strUsuarios;
+}
+
+function leUserLogado() {
+  let strUsuario = sessionStorage.getItem("usuarioLogado");
+
+  if (strUsuario !== null) {
+    strUsuario = JSON.parse(strUsuario);
+  }
+
+  return strUsuario;
 }
 
 /*
@@ -502,7 +532,7 @@ function adicionaCardProf() {
       let novoCard = document.createElement("div");
       containerCards.appendChild(novoCard);
       novoCard.className = "col-12 col-sm-12 col-md-6 col-lg-3 card-prof d-grid justify-content-center";
-      novoCard.setAttribute('id', `cardProf${i}`)
+      novoCard.setAttribute("id", `cardProf${i}`);
 
       const materiasLecionadas = usuario[i].materias.replaceAll(";", "<br>");
 
@@ -535,30 +565,25 @@ if (containerCards) {
 
 //filtra os cards dos professores de acordo com a matéria e o preço na página de buscar os professores
 
-function filtraCardProf(e){
-  let preco = parseInt(document.getElementById('precoFiltro').value)
-  let materia = document.getElementById('materiaFiltro').value
-
-  console.log(preco)
-  console.log(materia)
-
+function filtraCardProf(e) {
+  let preco = parseInt(document.getElementById("precoFiltro").value);
+  let materia = document.getElementById("materiaFiltro").value;
   let usuarios = leUsers();
 
-  for(let i = 0 ; i < usuarios.length ; i++){
-    if(usuarios[i].categoria == 'professor'){
-      let divCard = document.getElementById(`cardProf${i}`)
-      if(!(((usuarios[i].materias).includes(materia)) && (usuarios[i].preco <= preco))){
-        console.log('ok')
-        divCard.setAttribute('class', 'collapse')
+  for (let i = 0; i < usuarios.length; i++) {
+    if (usuarios[i].categoria == "professor") {
+      let divCard = document.getElementById(`cardProf${i}`);
+      if (!(usuarios[i].materias.includes(materia) && usuarios[i].preco <= preco)) {
+        divCard.setAttribute("class", "collapse");
       }
     }
   }
   e.preventDefault();
 }
 
-let btnFiltro = document.getElementById('btn-filtrar');
-if(btnFiltro){
-  btnFiltro.addEventListener("click", filtraCardProf)
+let btnFiltro = document.getElementById("btn-filtrar");
+if (btnFiltro) {
+  btnFiltro.addEventListener("click", filtraCardProf);
 }
 
 /**
