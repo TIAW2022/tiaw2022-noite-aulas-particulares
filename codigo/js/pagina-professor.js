@@ -1,6 +1,11 @@
+const uLogado = leUserLogado();
+
 if (!checaLogin()) {
-  alert('Você deve estar logado para solicitar uma aula')
-  window.location.href = "./cadastro-aluno.html";
+  alert("Você deve estar logado para acessar esta página");
+  window.location.href = "./login.html";
+} else if (uLogado.categoria !== "aluno") {
+  alert("Você deve ser um aluno registrado para acessar esta página");
+  window.location.href = "./index.html";
 }
 
 // Query Selectors
@@ -56,7 +61,6 @@ setDadosProfessor();
  */
 function setAula(e) {
   e.preventDefault();
-
   const urlParams = new URLSearchParams(window.location.search);
   const nomeInput = document.querySelector(UISelectors.nomeAluno).value;
   const contatoInput = document.querySelector(UISelectors.dadosAluno).value;
@@ -75,6 +79,7 @@ function setAula(e) {
       hora: horaInput,
       local: localInput,
       idProfessor: parseInt(urlParams.get("id")),
+      idAluno: uLogado.id,
       status: "aguardando",
     };
 
