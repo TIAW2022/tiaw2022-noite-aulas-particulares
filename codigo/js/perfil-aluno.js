@@ -16,7 +16,6 @@ if (!checaLogin()) {
 
 function setDadosAluno(){
   const nomeCompleto = uLogado.nome + " " + uLogado.sobrenome;
-  console.log(nomeCompleto)
 
   document.querySelector('.descricao-aluno').innerHTML = `
     <h4>${nomeCompleto}</h4>
@@ -43,7 +42,7 @@ function atualizaAulas(){
         console.log(user[aulas[i].idProfessor -1].nome)
 
         document.querySelector(`.aula-aguardando`).innerHTML += `
-        <div class="justify-content-start">
+        <div class="justify-content-start info-aulas">
           <i class="pr-1 fas fa-user text-muted"></i> 
             Professor(a) ${user[aulas[i].idProfessor -1].nome}
             <p>Código da aula: ${aulas[i].id} </p>
@@ -61,7 +60,7 @@ function atualizaAulas(){
         console.log(user[aulas[i].idProfessor -1].nome)
 
         document.querySelector(`.aula-andamento`).innerHTML += `
-        <div class="justify-content-start">
+        <div class="justify-content-start info-aulas">
           <i class="pr-1 fas fa-user text-muted"></i> 
             Professor ${user[aulas[i].idProfessor -1].nome}
             <p>Código da aula: ${aulas[i].id} </p>
@@ -79,7 +78,7 @@ function atualizaAulas(){
         console.log(user[aulas[i].idProfessor -1].nome)
 
         document.querySelector(`.aula-finalizada`).innerHTML += `
-        <div class="justify-content-start">
+        <div class="justify-content-start info-aulas">
           <i class="pr-1 fas fa-user text-muted"></i> 
             Professor ${user[aulas[i].idProfessor -1].nome}
             <p>Código da aula: ${aulas[i].id} </p>

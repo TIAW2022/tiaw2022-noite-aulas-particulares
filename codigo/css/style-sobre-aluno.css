@@ -127,7 +127,20 @@ body, html{
     margin: 8% 15%;
 }
 
-.card{
-    margin: 10%;
-    background-color:#aebdca;
+.card-body{
+    background-color: #aebdca;
 }
+
+.card-aulas{
+    background-color: #aebdca;
+}
+
+.info-aulas{
+    background-color: white;
+    border-radius: 5px;
+}
+
+.descricao-aluno{
+    word-break: break-all;
+}
+
