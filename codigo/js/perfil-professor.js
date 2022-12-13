@@ -95,7 +95,7 @@ function alteraAula() {
 
       for (let i = 0; i < aulas.length; i++) {
         if (aulas[i].id === idAula) {
-          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora);
+          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora, aulas[i].local);
         }
       }
     }
@@ -123,7 +123,7 @@ function alteraAula() {
 
       for (let i = 0; i < aulas.length; i++) {
         if (aulas[i].id === idAula) {
-          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora);
+          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora, aulas[i].local);
         }
       }
     }
@@ -138,7 +138,7 @@ function alteraAula() {
 
       for (let i = 0; i < aulas.length; i++) {
         if (aulas[i].id === idAula) {
-          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora);
+          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora, aulas[i].local);
         }
       }
     }
@@ -192,7 +192,7 @@ function recuperaAulas() {
 /**
  * Função para mostrar os dados do aluno solicitante das aulas
  */
-function modalAluno(id, nome, contato, data, hora) {
+function modalAluno(id, nome, contato, data, hora, local) {
   if (!document.querySelector(`.modal-aluno-${id}`)) {
     const modal = document.createElement("div");
     modal.className = `modal-aluno-${id}`;
@@ -207,9 +207,11 @@ function modalAluno(id, nome, contato, data, hora) {
               </button>
             </div>
             <div class="modal-body">
+              <p><b>Código da aula:</b> ${id}</p>
               <p><b>Nome:</b> ${nome}</p>
               <p><b>Contato:</b> ${contato}</p>
               <p><b>Data:</b> ${formataData(data)}, ${hora}</p>
+              <p><b>Local:</b> ${local}</p>
             </div>
           </div>
         </div>

@@ -61,6 +61,7 @@ setDadosProfessor();
  */
 function setAula(e) {
   e.preventDefault();
+  const aulas = leAulas();
   const urlParams = new URLSearchParams(window.location.search);
   const nomeInput = document.querySelector(UISelectors.nomeAluno).value;
   const contatoInput = document.querySelector(UISelectors.dadosAluno).value;
@@ -72,7 +73,7 @@ function setAula(e) {
     alert("Confira se todos os campos foram preenchidos!");
   } else {
     const aula = {
-      id: Math.floor(Math.random() * 1000) + 1,
+      id: aulas.length + 1,
       nome: nomeInput,
       contato: contatoInput,
       data: dataInput,
@@ -100,24 +101,3 @@ function setAula(e) {
 }
 
 document.querySelector(UISelectors.form).addEventListener("submit", setAula);
-
-// {
-//   id: 1,
-//   categoria: "professor",
-//   nome: "Hebert",
-//   sobrenome: "Matta Vidal",
-//   escolaridade: "Mestre",
-//   telefone: "(35) 98525-0448",
-//   materias: "Matemática;Física;",
-//   descricao: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, nisi officia? Accusantium a natus amet.",
-//   email: "hebert.vidal@geradornv.com.br",
-//   senha: "senhadohebert123",
-// },
-// {
-//   id: 7,
-//   categoria: "aluno",
-//   nome: "Hevelyn",
-//   sobrenome: "Peixoto Alfradique",
-//   email: "hevelyn.alfradique@geradornv.com.br",
-//   senha: "senhadahevelyn123",
-// },
