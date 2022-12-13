@@ -1,8 +1,6 @@
 // Inicializa todas as funções do app
 init();
 
-// TODO: Modificar dinamicamente o perfil-professor e perfil-aluno, com comunicação entre si
-
 /**
  * Máscara de telefone
  */
@@ -282,6 +280,9 @@ function renderizaNavbar() {
   }
 }
 
+/**
+ * Botão de deslogar do site
+ */
 document.querySelector(".navbar-nav").addEventListener("click", (e) => {
   if (e.target.className === "logout") {
     e.preventDefault();
@@ -295,7 +296,6 @@ document.querySelector(".navbar-nav").addEventListener("click", (e) => {
 /*
  * Função que lê e retorna um array de objetos com todos os usuário registrados no local storage
  */
-
 function leUsers() {
   let strUsuarios = localStorage.getItem("usuarios");
 
@@ -319,7 +319,6 @@ function leUserLogado() {
 /*
  * Função que salva os dados dos usuarios no local storage
  */
-
 function salvaDados(dados) {
   localStorage.setItem("usuarios", JSON.stringify(dados));
 }
@@ -359,7 +358,6 @@ function leAulas() {
 /*
  * Função que cadastra novos alunos e salva os dados no local storage
  */
-
 function cadastraAluno() {
   let usuarios = leUsers();
 
@@ -378,7 +376,7 @@ function cadastraAluno() {
     }
   }
 
-  if (estaRegistrado == false) {
+  if (estaRegistrado == false && nome !== "" && sobrenome !== "" && email !== "" && senha !== "") {
     let novoAluno = {
       id: id,
       categoria: categoria,
@@ -391,15 +389,23 @@ function cadastraAluno() {
     usuarios.push(novoAluno);
 
     salvaDados(usuarios);
+    alert("Cadastrado com sucesso! Clique em 'OK' para ser redirecionado");
+    setTimeout(() => {
+      window.location.href = "./login.html";
+    }, 500);
   } else {
-    alert("e-mail já cadastrado");
+    alert("Usuário já cadastrado ou campos vazios.");
   }
 }
 
 //event listener que da trigger na função cadatraAluno quando o botao de cadastrar é clicado
 let enviaAluno = document.getElementById("btn-submit-aluno");
 if (enviaAluno) {
-  enviaAluno.addEventListener("click", cadastraAluno);
+  enviaAluno.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    cadastraAluno();
+  });
 }
 
 /*
@@ -439,7 +445,7 @@ function cadastraProfessor() {
     }
   }
 
-  if (estaRegistrado == false) {
+  if (estaRegistrado == false && nome !== "" && sobrenome !== "" && email !== "" && senha !== "" && escolaridade !== "" && telefone !== "" && preco !== "" && vetMateria !== "") {
     let novoProfessor = {
       id: id,
       categoria: categoria,
@@ -456,19 +462,23 @@ function cadastraProfessor() {
     usuarios.push(novoProfessor);
 
     salvaDados(usuarios);
-
+    alert("Cadastrado com sucesso! Clique em 'OK' para ser redirecionado");
     setTimeout(() => {
       window.location.href = "./login.html";
     }, 500);
   } else {
-    alert("E-mail já cadastrado");
+    alert("Usuário já cadastrado ou campos vazios.");
   }
 }
 
 //event listener que da trigger na função cadatraProfessor quando o botao de cadastrar é clicado
 let enviaProfessor = document.getElementById("btn-submit-professor");
 if (enviaProfessor) {
-  enviaProfessor.addEventListener("click", cadastraProfessor);
+  enviaProfessor.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    cadastraProfessor();
+  });
 }
 
 /*
@@ -591,6 +601,17 @@ function filtraCardProf(e) {
 let btnFiltro = document.getElementById("btn-filtrar");
 if (btnFiltro) {
   btnFiltro.addEventListener("click", filtraCardProf);
+}
+
+/**
+ * Formata data
+ */
+function formataData(data) {
+  const dataDesformatada = new Date(data);
+  const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+  const dataFormatada = dataDesformatada.getDate() + 1 + " " + meses[dataDesformatada.getMonth()] + " " + dataDesformatada.getFullYear();
+
+  return dataFormatada;
 }
 
 /**

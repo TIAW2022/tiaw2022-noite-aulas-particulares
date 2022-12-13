@@ -89,6 +89,15 @@ function alteraAula() {
           window.location.reload();
         }
       }
+    } else if (e.target.id === "mostra-dados") {
+      e.preventDefault();
+      let idAula = parseInt(aulaAtual.id.replace("aula-", ""));
+
+      for (let i = 0; i < aulas.length; i++) {
+        if (aulas[i].id === idAula) {
+          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora);
+        }
+      }
     }
   });
 
@@ -106,6 +115,30 @@ function alteraAula() {
           localStorage.setItem("aulas", JSON.stringify(aulas));
           aulaAtual.remove();
           window.location.reload();
+        }
+      }
+    } else if (e.target.id === "mostra-dados") {
+      e.preventDefault();
+      let idAula = parseInt(aulaAtual.id.replace("aula-", ""));
+
+      for (let i = 0; i < aulas.length; i++) {
+        if (aulas[i].id === idAula) {
+          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora);
+        }
+      }
+    }
+  });
+
+  document.querySelector("#finalizado-aulas").addEventListener("click", (e) => {
+    let aulaAtual = e.target.parentElement.parentElement.parentElement;
+
+    if (e.target.id === "mostra-dados") {
+      e.preventDefault();
+      let idAula = parseInt(aulaAtual.id.replace("aula-", ""));
+
+      for (let i = 0; i < aulas.length; i++) {
+        if (aulas[i].id === idAula) {
+          modalAluno(aulas[i].id, aulas[i].nome, aulas[i].contato, aulas[i].data, aulas[i].hora);
         }
       }
     }
@@ -127,8 +160,9 @@ function recuperaAulas() {
       divPai.innerHTML = `
         <div class="justify-content-start"><i class="pr-1 fas fa-user text-muted"></i> ${aula.nome}</div>
         <div class="ml-auto opcoes-professor">
-            <a href="#" class="text-success"><i id="confirma-aula" class="fas fa-check"></i></a>
-            <a href="#" class="text-danger"><i id="deleta-aula" class="fas fa-times"></i></a>
+          <a href="#" class="text-success"><i id="confirma-aula" class="fas fa-check"></i></a>
+          <a href="#" class="text-danger"><i id="deleta-aula" class="fas fa-times"></i></a>
+          <a href="#" class="text-primary" data-toggle="modal" data-target="#modal-aluno-${aula.id}"><i id="mostra-dados" class="fas fa-info-circle"></i></a>
         </div>
       `;
       document.querySelector("#solicitacao-aulas").appendChild(divPai);
@@ -136,18 +170,54 @@ function recuperaAulas() {
       divPai.innerHTML = `
         <div class="justify-content-start"><i class="pr-1 fas fa-user text-muted"></i> ${aula.nome}</div>
         <div class="ml-auto opcoes-professor">
-            <a href="#" class="text-success"><i id="confirma-aula" class="fas fa-check"></i></a>
+          <a href="#" class="text-success"><i id="confirma-aula" class="fas fa-check"></i></a>
+          <a href="#" class="text-primary" data-toggle="modal" data-target="#modal-aluno-${aula.id}"><i id="mostra-dados" class="fas fa-info-circle"></i></a>
         </div>
       `;
       document.querySelector("#andamento-aulas").appendChild(divPai);
     } else if (aula.idProfessor === idProfessor && aula.status === "concluida") {
       let divAtual = document.createElement("div");
       divAtual.innerHTML = `
-        <div id="aula-${aula.id}" class="p-2 bg-secondary text-light info-professor"><i class="pr-1 fas fa-user-graduate text-light"></i> ${aula.nome}</div>
+        <div id="aula-${aula.id}" class="p-2 d-flex bg-secondary text-light info-professor"><div class="justify-content-start"><i class="pr-1 fas fa-user-graduate text-light"></i> ${aula.nome}</div>
+          <div class="ml-auto opcoes-professor">
+            <a href="#" class="text-white" data-toggle="modal" data-target="#modal-aluno-${aula.id}"><i id="mostra-dados" class="fas fa-info-circle"></i></a>
+          </div>
+        </div>
       `;
       document.querySelector("#finalizado-aulas").appendChild(divAtual);
     }
   });
+}
+
+/**
+ * Função para mostrar os dados do aluno solicitante das aulas
+ */
+function modalAluno(id, nome, contato, data, hora) {
+  if (!document.querySelector(`.modal-aluno-${id}`)) {
+    const modal = document.createElement("div");
+    modal.className = `modal-aluno-${id}`;
+    modal.innerHTML = `
+      <div class="modal fade" id="modal-aluno-${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" >Informações do Aluno</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><b>Nome:</b> ${nome}</p>
+              <p><b>Contato:</b> ${contato}</p>
+              <p><b>Data:</b> ${formataData(data)}, ${hora}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.querySelector("#main").appendChild(modal);
+  }
 }
 
 setDadosProfessor();
