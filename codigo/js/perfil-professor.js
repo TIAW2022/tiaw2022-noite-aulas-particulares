@@ -192,7 +192,7 @@ function recuperaAulas() {
 /**
  * Função para mostrar os dados do aluno solicitante das aulas
  */
-function modalAluno(id, nome, contato, data, hora, local) {
+function modalAluno(id, nome, contato, local) {
   if (!document.querySelector(`.modal-aluno-${id}`)) {
     const modal = document.createElement("div");
     modal.className = `modal-aluno-${id}`;

@@ -587,6 +587,13 @@ function filtraCardProf(e) {
   let materia = document.getElementById("materiaFiltro").value;
   let usuarios = leUsers();
 
+  let formFiltro = document.getElementById("formFiltro");
+        let adicionaMateria = document.createElement("div");
+        formFiltro.appendChild(adicionaMateria);
+        adicionaMateria.innerHTML += `
+        <p> ${materia}
+        `
+
   for (let i = 0; i < usuarios.length; i++) {
     if (usuarios[i].categoria == "professor") {
       let divCard = document.getElementById(`cardProf${i}`);

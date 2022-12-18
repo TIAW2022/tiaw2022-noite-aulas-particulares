@@ -31,11 +31,10 @@
                   </div>
                 </form>
               </div>
-              <form role="form product-form">
+              <form role="form product-form" id="formFiltro">
                 <label for="filtro-materia"> <span>Materia</span></label>
                 <div class="form-group filtro-materia">
                   <select class="form-control" id="materiaFiltro">
-                    <option>Todas</option>
                     <option>Matemática</option>
                     <option>Português</option>
                     <option>Geografia</option>
@@ -49,7 +48,7 @@
                   <button class="btn btn-primary mr-4" id="btn-filtrar">Filtrar</button>
                   <button type="submit" class="btn btn-primary" id="btn-removerFiltros">Remover Filtros</button>
                 </div>
-                
+                <label for="materias-filtradas" class="mt-2"><span>Materias Filtradas</span></label>
               </form>
             </div>
           </section>

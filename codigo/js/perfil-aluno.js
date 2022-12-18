@@ -42,6 +42,9 @@ function atualizaAulas() {
           <i class="pr-1 fas fa-user text-muted"></i> 
             Professor(a) ${user[aulas[i].idProfessor - 1].nome}
             <p>Código da aula: ${aulas[i].id} </p>
+            <p><b>Contato:</b> ${user[aulas[i].idProfessor - 1].telefone}</p>
+            <p><b>Data:</b> ${aulas[i].data}, ${aulas[i].hora}</p>
+            <p><b>Local:</b> ${aulas[i].local}</p>
           </div>
         <div class="ml-auto opcoes-professor">
         </div>
